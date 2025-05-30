@@ -6,13 +6,12 @@ use macroquad::prelude::*;
 //extern crate console_error_panic_hook; // causes gray screen
 //use std::panic;
 
-fn nanoseconds_get() -> u64 {
+fn nanoseconds_get() -> u32 {
 	if let Ok(duration) = UNIX_EPOCH.elapsed() {
 		return duration.subsec_nanos()
-	} else {
-		panic!()
-	}
+	} else {panic!()}
 }
+fn temporal_random() -> f64 {(nanoseconds_get() as f64) / (1000000000.000 as f64)}
 
 
 

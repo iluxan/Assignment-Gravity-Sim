@@ -47,11 +47,11 @@ impl PlanetaryBody {
 fn PhysicsTick(mut planetary_bodies: Vec::<PlanetaryBody>, delta_time: f64) -> Vec::<PlanetaryBody> {
 	//'collision_checks: loop {break 'collision_checks;} // check and handle collisions. break added temporarily, commented out for skipping initially
 	let number_of_bodies: usize = planetary_bodies.len();
-	for index in 0..(number_of_bodies - 1) {
+	for index in 0..number_of_bodies {
 		planetary_bodies[index] = planetary_bodies[index].clone().SelfAdjustLocationForVelocity(delta_time)
 	}
-	for first_index in 1..(number_of_bodies-1) {
-		for second_index in first_index..number_of_bodies {
+	for first_index in 1..number_of_bodies {
+		for second_index in first_index..=number_of_bodies {
 			planetary_bodies[first_index] = planetary_bodies[first_index].clone().SelfAdjustVelocityForGravityToOtherObject(planetary_bodies.get(second_index).unwrap(), delta_time);
 			planetary_bodies[second_index] = planetary_bodies[second_index].clone().SelfAdjustVelocityForGravityToOtherObject(&planetary_bodies.get(first_index).unwrap(), delta_time);
 		}; 

@@ -11,7 +11,7 @@ fn nanoseconds_get() -> u32 {
 		return duration.subsec_nanos()
 	} else {panic!()}
 }
-fn temporal_random() -> f64 {(nanoseconds_get() as f64) / (1000000000.000 as f64)}
+fn temporal_random_f32() -> f32 {(nanoseconds_get() as f32) / (1000000000.000 as f32)}
 
 
 

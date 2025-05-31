@@ -15,7 +15,7 @@ fn temporal_random_f32() -> f32 {(nanoseconds_get() as f32) / (1000000000.000 as
 
 
 
-fn LocalDrawCircle(a: f64, b: f64, c: f64, d: macroquad::prelude::Color) { // called this because it's the local version
+fn local_draw_circle(a: f64, b: f64, c: f64, d: macroquad::prelude::Color) { // called this because it's the local version
 	macroquad::prelude::draw_circle(a as f32, b as f32, c as f32, d)
 }
 
@@ -33,7 +33,7 @@ struct PlanetaryBody {
 
 // The impl block defines properties of the type specified. Here, the type specified is PlanetaryBody. 
 impl PlanetaryBody {  
-	fn SelfAdjustVelocityForGravityToOtherObject(mut self, body_2_r: &PlanetaryBody, delta_time: f64) -> PlanetaryBody {
+	fn self_adjust_velocity_for_gravity_to_other_object(mut self, body_2_r: &PlanetaryBody, delta_time: f64) -> PlanetaryBody {
 		let x_displacement: f64 = body_2_r.location[0] - self.location[0];
 		let y_displacement: f64 = body_2_r.location[1] - self.location[1];
 		let distance: f64 = f64::sqrt((x_displacement * x_displacement) + (y_displacement * y_displacement));
@@ -42,7 +42,7 @@ impl PlanetaryBody {
 		self.velocity[1] += delta_time * acceleration * y_displacement / distance;
 		return self
 	}
-	fn SelfAdjustLocationForVelocity(mut self, delta_time: f64) -> PlanetaryBody {
+	fn self_adjust_location_for_velocity(mut self, delta_time: f64) -> PlanetaryBody {
 		self.location[0] += self.velocity[0] * delta_time;
 		self.location[1] += self.velocity[1] * delta_time;
 		return self
@@ -50,24 +50,24 @@ impl PlanetaryBody {
 	//fn PairwiseCheckForCollision(body_1: &PlanetaryBody, body_2: &PlanetaryBody) -> bool {body_1.radius + body_2.radius < f64::sqrt(Pow(body_2.location[0] - body_1.location[0], 2) + Pow(body_2.location[1] - body_1.location[1], 2))}
 } // this is the end of the impl block
 
-fn PhysicsTick(mut planetary_bodies: Vec::<PlanetaryBody>, delta_time: f64) -> Vec::<PlanetaryBody> {
+fn physics_tick(mut planetary_bodies: Vec::<PlanetaryBody>, delta_time: f64) -> Vec::<PlanetaryBody> {
 	//'collision_checks: loop {break 'collision_checks;} // check and handle collisions. break added temporarily, commented out for skipping initially
 	let number_of_bodies: usize = planetary_bodies.len();
 	for index in 0..number_of_bodies {
-		planetary_bodies[index] = planetary_bodies[index].clone().SelfAdjustLocationForVelocity(delta_time)
+		planetary_bodies[index] = planetary_bodies[index].clone().self_adjust_location_for_velocity(delta_time)
 	}
 	for first_index in 0..(number_of_bodies - 1) {
 		for second_index in (first_index + 1)..number_of_bodies {
-			planetary_bodies[first_index] = planetary_bodies[first_index].clone().SelfAdjustVelocityForGravityToOtherObject(planetary_bodies.get(second_index).unwrap(), delta_time);
-			planetary_bodies[second_index] = planetary_bodies[second_index].clone().SelfAdjustVelocityForGravityToOtherObject(planetary_bodies.get(first_index).unwrap(), delta_time);
+			planetary_bodies[first_index] = planetary_bodies[first_index].clone().self_adjust_velocity_for_gravity_to_other_object(planetary_bodies.get(second_index).unwrap(), delta_time);
+			planetary_bodies[second_index] = planetary_bodies[second_index].clone().self_adjust_velocity_for_gravity_to_other_object(planetary_bodies.get(first_index).unwrap(), delta_time);
 		}; 
 	};
 	return planetary_bodies
 }
 
-fn RenderBodies(planetary_bodies_r: &Vec<PlanetaryBody>, view_attributes: [f64; 3]) {
+fn render_bodies(planetary_bodies_r: &Vec<PlanetaryBody>, view_attributes: [f64; 3]) {
 	for item in planetary_bodies_r {
-		LocalDrawCircle(item.location[0] * view_attributes[2] + view_attributes[0], item.location[1] * view_attributes[2] + view_attributes[1], item.radius * view_attributes[2], item.colour)
+		local_draw_circle(item.location[0] * view_attributes[2] + view_attributes[0], item.location[1] * view_attributes[2] + view_attributes[1], item.radius * view_attributes[2], item.colour)
 	}
 }
 
@@ -90,7 +90,7 @@ async fn main() {  // This is the function that is normally set to immediately e
 	temporal_random_f32();
 	'main_cycle: loop {
 		clear_background(macroquad::prelude::WHITE);
-		RenderBodies(&planetary_bodies, view_attributes);
+		render_bodies(&planetary_bodies, view_attributes);
 		/*{
 			let font = FONT_SPECTRAL_LIGHT.clone();
 			macroquad::text::draw_text("hello", view_attributes[0] as f32, view_attributes[1] as f32, 20.0, macroquad::prelude::BLACK);
@@ -100,7 +100,7 @@ async fn main() {  // This is the function that is normally set to immediately e
 		//fonts.draw_text("hello", 0.0, 0.0, 20.0, macroquad::prelude::BLACK);
 		//println!("{:#?}", &planetary_bodies);
 		let delta_time = get_frame_time();
-		planetary_bodies = PhysicsTick(planetary_bodies, delta_time as f64); //changed to just pass the bodies back and forth to get around mutable reference issues
+		planetary_bodies = physics_tick(planetary_bodies, delta_time as f64); //changed to just pass the bodies back and forth to get around mutable reference issues
 		next_frame().await
 	}
 	

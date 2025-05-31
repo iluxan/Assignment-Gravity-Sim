@@ -80,15 +80,14 @@ fn render_bodies(planetary_bodies_r: &Vec<PlanetaryBody>, view_attributes: [f64;
 #[macroquad::main("Assignment-Gravity-Sim")]
 async fn main() {  // This is the function that is normally set to immediately execute on starting the program. 
 	//panic::set_hook(Box::new(console_error_panic_hook::hook));
-	let start = SystemTime::now();
 	let mut view_attributes: [f64; 3] = [(macroquad::prelude::screen_width() as f64) / 2.0, (macroquad::prelude::screen_height() as f64) / 2.0, 1.0];
 	let mut planetary_bodies: Vec<PlanetaryBody> = Vec::<PlanetaryBody>::with_capacity(64);
 	//planetary_bodies.push(PlanetaryBody {mass: 100.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 5.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
 	//planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, -5.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
 	planetary_bodies.push(PlanetaryBody {mass: 100.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 0.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
 	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 0.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
-	temporal_random_f32();
-	'main_cycle: loop {
+	//temporal_random_f32();
+	loop {
 		clear_background(macroquad::prelude::WHITE);
 		render_bodies(&planetary_bodies, view_attributes);
 		/*{

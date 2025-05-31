@@ -20,7 +20,7 @@ fn local_draw_circle(a: f64, b: f64, c: f64, d: macroquad::prelude::Color) { // 
 }
 
 // const UNIVERSAL_GRAVITATIONAL_CONSTANT: f64 = (6.6743015 / (10 ^ 11)); // Commented out to make physics not require huge values for mass to do gravity
-const UNIVERSAL_GRAVITATIONAL_CONSTANT: f64 = 1.0;
+const UNIVERSAL_GRAVITATIONAL_CONSTANT: f64 = 100.0;
 
 #[derive(Debug, Clone)]
 struct PlanetaryBody {

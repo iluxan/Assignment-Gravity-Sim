@@ -25,6 +25,27 @@ jobs:
       - name: Build
         run: cargo build --release --target wasm32-unknown-unknown
 
+      - name: Debug - Check if build succeeded
+        run: |
+          echo "=== Build completed, checking what was created ==="
+          echo "Current directory contents:"
+          ls -la
+          echo ""
+          echo "Target directory contents:"
+          ls -la ./target/ || echo "No target directory found"
+          echo ""
+          echo "Target wasm32-unknown-unknown contents:"
+          ls -la ./target/wasm32-unknown-unknown/ || echo "No wasm32-unknown-unknown directory found"
+          echo ""
+          echo "Target wasm32-unknown-unknown/release contents:"
+          ls -la ./target/wasm32-unknown-unknown/release/ || echo "No release directory found"
+          echo ""
+          echo "Looking for any .wasm files anywhere:"
+          find . -name "*.wasm" -type f || echo "No .wasm files found"
+          echo ""
+          echo "Cargo.toml contents:"
+          cat Cargo.toml
+
       - name: Prepare Deployment Directory
         run: |
           mkdir -p ./deploy

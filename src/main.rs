@@ -109,6 +109,12 @@ async fn main() {  // This is the function that is normally set to immediately e
 		//println!("{:#?}", &planetary_bodies);
 		let delta_time = get_frame_time();
 		planetary_bodies = physics_tick(planetary_bodies, delta_time as f64); //changed to just pass the bodies back and forth to get around mutable reference issues
+		
+		if is_mouse_button_pressed(MouseButton::Left) {
+			let (mouse_x,mouse_y) = mouse_position();
+			let mouse_circ = Circle::new(mouse_x,mouse_y,1.);
+		}
+		
 		next_frame().await
 	}
 	

@@ -112,7 +112,7 @@ async fn main() {  // This is the function that is normally set to immediately e
 		
 		if is_mouse_button_pressed(MouseButton::Left) {
 			let (mouse_x,mouse_y) = mouse_position();
-			let mouse_circ = macroquad::prelude::draw_circle(mouse_x,mouse_y,1.);
+			let mouse_circ = macroquad::prelude::draw_circle(mouse_x,mouse_y,1., RED);
 		}
 		
 		next_frame().await

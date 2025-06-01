@@ -91,8 +91,9 @@ async fn main() {  // This is the function that is normally set to immediately e
 	//planetary_bodies.push(PlanetaryBody {mass: 100.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 5.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
 	//planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, -5.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
 	planetary_bodies.push(PlanetaryBody {mass: 10000.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 0.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [100.0, 3000.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [30.0, -400.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::GREEN});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [100.0, 200.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [30.0, -100.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 10.0], colour: macroquad::prelude::GREEN});
+	planetary_bodies.push(PlanetaryBody {mass: 2.0, radius: (macroquad::prelude::screen_height() as f64) / 80.0, velocity: [30.0, -100.0], location: [{1.0-{macroquad::prelude::screen_width() * 0.0625}} as f64, -10.0], colour: macroquad::prelude::PURPlE});
 	//temporal_random_f32();
 	loop {
 		clear_background(macroquad::prelude::WHITE);

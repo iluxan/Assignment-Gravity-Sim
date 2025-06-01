@@ -80,10 +80,10 @@ fn render_bodies(planetary_bodies_r: &Vec<PlanetaryBody>, view_attributes: [f64;
 
 #[macroquad::main("Assignment-Gravity-Sim")]
 async fn main() {  // This is the function that is normally set to immediately execute on starting the program. 
-	debug!("This is a debug message");
+	//debug!("This is a debug message");
 	info!("and info message");
-	error!("and errors, the red ones!");
-	warn!("Or warnings, the yellow ones.");
+	//error!("and errors, the red ones!");
+	//warn!("Or warnings, the yellow ones.");
 
 	//panic::set_hook(Box::new(console_error_panic_hook::hook));
 	let mut view_attributes: [f64; 3] = [(macroquad::prelude::screen_width() as f64) / 2.0, (macroquad::prelude::screen_height() as f64) / 2.0, 1.0];
@@ -91,9 +91,9 @@ async fn main() {  // This is the function that is normally set to immediately e
 	//planetary_bodies.push(PlanetaryBody {mass: 100.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 5.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
 	//planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, -5.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
 	planetary_bodies.push(PlanetaryBody {mass: 10000.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 0.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [100.0, 200.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [30.0, -100.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 10.0], colour: macroquad::prelude::GREEN});
-	planetary_bodies.push(PlanetaryBody {mass: 2.0, radius: (macroquad::prelude::screen_height() as f64) / 80.0, velocity: [30.0, -100.0], location: [{1.0-{macroquad::prelude::screen_width() * 0.0625}} as f64, -10.0], colour: macroquad::prelude::YELLOW});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [5.0, 200.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [10.0, -100.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 10.0], colour: macroquad::prelude::GREEN});
+	planetary_bodies.push(PlanetaryBody {mass: 2.0, radius: (macroquad::prelude::screen_height() as f64) / 80.0, velocity: [10.0, -100.0], location: [{0.1-{macroquad::prelude::screen_width() * 0.0625}} as f64, -10.0], colour: macroquad::prelude::YELLOW});
 	//temporal_random_f32();
 	loop {
 		clear_background(macroquad::prelude::WHITE);
@@ -105,6 +105,7 @@ async fn main() {  // This is the function that is normally set to immediately e
 		}*/
 		//fonts.draw_text("hello", view_attributes[0] as f32, view_attributes[1] as f32, 20.0, macroquad::prelude::BLACK);
 		//fonts.draw_text("hello", 0.0, 0.0, 20.0, macroquad::prelude::BLACK);
+		info!("planetary bodies: {:#?}", &planetary_bodies);
 		//println!("{:#?}", &planetary_bodies);
 		let delta_time = get_frame_time();
 		planetary_bodies = physics_tick(planetary_bodies, delta_time as f64); //changed to just pass the bodies back and forth to get around mutable reference issues

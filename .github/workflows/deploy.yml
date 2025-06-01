@@ -2,18 +2,27 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main # If your default branch is named something else, change this
+      - main
 
 permissions:
-  contents: write
+  contents: read
   pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -28,32 +37,35 @@ jobs:
       - name: Debug - Check if build succeeded
         run: |
           echo "=== Build completed, checking what was created ==="
-          echo "Current directory contents:"
-          ls -la
-          echo ""
-          echo "Target directory contents:"
-          ls -la ./target/ || echo "No target directory found"
-          echo ""
-          echo "Target wasm32-unknown-unknown contents:"
-          ls -la ./target/wasm32-unknown-unknown/ || echo "No wasm32-unknown-unknown directory found"
-          echo ""
           echo "Target wasm32-unknown-unknown/release contents:"
-          ls -la ./target/wasm32-unknown-unknown/release/ || echo "No release directory found"
+          ls -la ./target/wasm32-unknown-unknown/release/
           echo ""
-          echo "Looking for any .wasm files anywhere:"
-          find . -name "*.wasm" -type f || echo "No .wasm files found"
-          echo ""
-          echo "Cargo.toml contents:"
-          cat Cargo.toml
+          echo "Looking for any .wasm files:"
+          find . -name "*.wasm" -type f
 
       - name: Prepare Deployment Directory
         run: |
-          mkdir -p ./deploy
-          cp ./target/wasm32-unknown-unknown/release/Assignment-Gravity-Sim.wasm ./deploy/
-          cp index.html ./deploy/
+          mkdir -p ./_site
+          cp ./target/wasm32-unknown-unknown/release/Assignment-Gravity-Sim.wasm ./_site/
+          cp index.html ./_site/
+          echo "Successfully copied files"
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Debug - Check deploy directory
+        run: |
+          echo "Site directory contents:"
+          ls -la ./_site/
+          echo ""
+          echo "Site directory file sizes:"
+          du -h ./_site/*
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

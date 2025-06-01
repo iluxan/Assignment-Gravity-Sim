@@ -6,6 +6,7 @@ use macroquad::prelude::*;
 //extern crate console_error_panic_hook; // causes gray screen
 //use std::panic;
 
+
 fn nanoseconds_get() -> u32 {
 	if let Ok(duration) = UNIX_EPOCH.elapsed() {
 		return duration.subsec_nanos()
@@ -79,6 +80,11 @@ fn render_bodies(planetary_bodies_r: &Vec<PlanetaryBody>, view_attributes: [f64;
 
 #[macroquad::main("Assignment-Gravity-Sim")]
 async fn main() {  // This is the function that is normally set to immediately execute on starting the program. 
+	debug!("This is a debug message");
+	info!("and info message");
+	error!("and errors, the red ones!");
+	warn!("Or warnings, the yellow ones.");
+
 	//panic::set_hook(Box::new(console_error_panic_hook::hook));
 	let mut view_attributes: [f64; 3] = [(macroquad::prelude::screen_width() as f64) / 2.0, (macroquad::prelude::screen_height() as f64) / 2.0, 1.0];
 	let mut planetary_bodies: Vec<PlanetaryBody> = Vec::<PlanetaryBody>::with_capacity(64);

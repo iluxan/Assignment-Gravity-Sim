@@ -91,9 +91,9 @@ async fn main() {  // This is the function that is normally set to immediately e
 	//planetary_bodies.push(PlanetaryBody {mass: 100.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 5.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
 	//planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, -5.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
 	planetary_bodies.push(PlanetaryBody {mass: 10000.0, radius: (macroquad::prelude::screen_height() as f64) / 20.0, velocity: [0.0, 0.0], location: [{0.0 - {macroquad::prelude::screen_width() * 0.0625}} as f64, 0.0], colour: macroquad::prelude::RED});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [5.0, 200.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
-	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [10.0, -100.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 10.0], colour: macroquad::prelude::GREEN});
-	planetary_bodies.push(PlanetaryBody {mass: 2.0, radius: (macroquad::prelude::screen_height() as f64) / 80.0, velocity: [10.0, -100.0], location: [{0.1-{macroquad::prelude::screen_width() * 0.0625}} as f64, -10.0], colour: macroquad::prelude::YELLOW});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [5.0, 50.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 0.0], colour: macroquad::prelude::BLUE});
+	planetary_bodies.push(PlanetaryBody {mass: 5.0, radius: (macroquad::prelude::screen_height() as f64) / 50.0, velocity: [10.0, -40.0], location: [{macroquad::prelude::screen_width() * 0.0625} as f64, 1000.0], colour: macroquad::prelude::GREEN});
+	planetary_bodies.push(PlanetaryBody {mass: 2.0, radius: (macroquad::prelude::screen_height() as f64) / 80.0, velocity: [10.0, -40.0], location: [{{macroquad::prelude::screen_width() * 0.06\425}} as f64, -100.0], colour: macroquad::prelude::YELLOW});
 	//temporal_random_f32();
 	loop {
 		clear_background(macroquad::prelude::WHITE);
@@ -112,7 +112,7 @@ async fn main() {  // This is the function that is normally set to immediately e
 		
 		if is_mouse_button_pressed(MouseButton::Left) {
 			let (mouse_x,mouse_y) = mouse_position();
-			let mouse_circ = Circle::new(mouse_x,mouse_y,1.);
+			let mouse_circ = macroquad::prelude::draw_circle(mouse_x,mouse_y,1.);
 		}
 		
 		next_frame().await
